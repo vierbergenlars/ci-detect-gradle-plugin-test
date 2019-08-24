@@ -1,0 +1,12 @@
+master_branch:
+  only:
+    - master
+  script: ./gradlew check -Pci.branch=master
+pull_request:
+  only:
+    - merge_request
+  script: ./gradlew check -Pci.branch=patch-1 -Pci.pr=1 -Pci.pr.targetBranch=master
+tag:
+  only:
+    - tags
+  script: ./gradlew check -Pci.tag=tag-1
