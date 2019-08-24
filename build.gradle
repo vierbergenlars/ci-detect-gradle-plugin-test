@@ -3,6 +3,8 @@ plugins {
     id "be.vbgn.ci-detect" version "0.2.1"
 }
 
+println System.getenv()
+
 assert ci.isCi(): "Is being run on a CI server"
 assert ci.branch == findProperty("ci.branch"): "CI server branch is correct"
 
