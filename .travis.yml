@@ -1,0 +1,11 @@
+language: java
+jobs:
+    include:
+        - if: type = push AND branch = master
+          env: ORG_GRADLE_PROJECT_ci.branch=master
+        - if: type = push AND branch = patch-1
+          env: ORG_GRADLE_PROJECT_ci.branch=patch-1
+        - if: type = pull_request
+          env: ORG_GRADLE_PROJECT_ci.targetBranch=master ORG_GRADLE_PROJECT_ci.pr=1 ORG_GRADLE_PROJECT_ci.branch=patch-1
+        - if: tag IS present
+          env: ORG_GRADLE_PROJECT_ci.tag=tag-1
