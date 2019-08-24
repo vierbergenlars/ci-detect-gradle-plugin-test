@@ -1,0 +1,14 @@
+plugins {
+    id "base"
+    id "be.vbgn.ci-detect" version "0.2.1"
+}
+
+assert ci.isCi(): "Is being run on a CI server"
+assert ci.branch == findProperty("ci.branch"): "CI server branch is correct"
+
+assert ci.isTag() == hasProperty("ci.tag"): "CI server tag is set"
+assert ci.tag == findProperty("ci.tag"): "CI server tag is correct"
+
+assert ci.isPullRequest() == hasProperty("ci.pr"): "CI server pull request is set"
+assert ci.pullRequest == findProperty("ci.pr"): "CI server pull request is correct"
+assert ci.pullRequestTargetBranch == findProperty("ci.pr.targetBranch"): "CI server PR target branch is correct"
