@@ -21,6 +21,6 @@ check {
 
         assertEquals("CI server pull request is set", !!project.hasProperty("ci.pr"), ci.isPullRequest())
         assertEquals("CI server pull request is correct", project.findProperty("ci.pr"), ci.pullRequest)
-        assertEquals("CI server pull request target branch is correct", project.findProperty("ci.pr.tarbetBranch"), ci.pullRequestTargetBranch)
+        assertEquals("CI server pull request target branch is correct", project.findProperty("ci.pr.targetBranch"), ci.pullRequestTargetBranch)
     }
 }
