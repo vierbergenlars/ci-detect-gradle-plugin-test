@@ -1,0 +1,34 @@
+version: 2
+jobs:
+    build_master:
+        docker:
+            - image: openjdk:8-jre
+        steps:
+            - checkout
+            - run: ./gradlew check -Pci.branch=master
+    build_pr:
+        docker:
+            - image: openjdk:8-jre
+        steps:
+            - checkout
+            - run: ./gradlew check -Pci.branch=patch-1 -Pci.pr=1 -Pci.pr.targetBranch=master
+    build_tag:
+        docker:
+            - image: openjdk:8-jre
+        steps:
+            - checkout
+            - run: ./gradlew check -Pci.tag=tag-1
+workflows:
+    version: 2
+    build:
+        jobs:
+            - build_master:
+                filters:
+                    branches:
+                        only: 
+                            - master
+            - build_tag:
+                filters:
+                    branches:
+                        only:
+                            - tag-1
