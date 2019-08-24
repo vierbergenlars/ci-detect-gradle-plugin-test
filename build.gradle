@@ -14,13 +14,13 @@ def assertEquals(message, expected, actual) {
 check {
     doLast {
         assertEquals("Is begin run on a CI server", true, ci.isCi())
-        assertEquals("CI server branch is correct", findProperty("ci.branch"), ci.branch)
+        assertEquals("CI server branch is correct", project.findProperty("ci.branch"), ci.branch)
 
-        assertEquals("CI server tag is set", !!hasProperty("ci.tag"), ci.isTag())
-        assertEquals("CI server tag is correct", findProperty("ci.tag"), ci.tag)
+        assertEquals("CI server tag is set", !!project.hasProperty("ci.tag"), ci.isTag())
+        assertEquals("CI server tag is correct", project.findProperty("ci.tag"), ci.tag)
 
-        assertEquals("CI server pull request is set", !!hasProperty("ci.pr"), ci.isPullRequest())
-        assertEquals("CI server pull request is correct", findProperty("ci.pr"), ci.pullRequest)
-        assertEquals("CI server pull request target branch is correct", findProperty("ci.pr.tarbetBranch"), ci.pullRequestTargetBranch)
+        assertEquals("CI server pull request is set", !!project.hasProperty("ci.pr"), ci.isPullRequest())
+        assertEquals("CI server pull request is correct", project.findProperty("ci.pr"), ci.pullRequest)
+        assertEquals("CI server pull request target branch is correct", project.findProperty("ci.pr.tarbetBranch"), ci.pullRequestTargetBranch)
     }
 }
