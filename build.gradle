@@ -5,12 +5,22 @@ plugins {
 
 println System.getenv()
 
-assert ci.isCi(): "Is being run on a CI server"
-assert ci.branch == findProperty("ci.branch"): "CI server branch is correct"
+def assertEquals(message, expected, actual) {
+    if(expected != actual) {
+        throw new AssertionError("$message: Expected: $expected Actual: $actual")
+    }
+}
 
-assert ci.isTag() == hasProperty("ci.tag"): "CI server tag is set"
-assert ci.tag == findProperty("ci.tag"): "CI server tag is correct"
+check {
+    doLast {
+        assertEquals("Is begin run on a CI server", true, ci.isCi())
+        assertEquals("CI server branch is correct", findProperty("ci.branch"), ci.branch)
 
-assert ci.isPullRequest() == hasProperty("ci.pr"): "CI server pull request is set"
-assert ci.pullRequest == findProperty("ci.pr"): "CI server pull request is correct"
-assert ci.pullRequestTargetBranch == findProperty("ci.pr.targetBranch"): "CI server PR target branch is correct"
+        assertEquals("CI server tag is set", !!hasProperty("ci.tag"), ci.isTag())
+        assertEquals("CI server tag is correct", findProperty("ci.tag"), ci.tag)
+
+        assertEquals("CI server pull request is set", !!hasProperty("ci.pr"), ci.isPullRequest())
+        assertEquals("CI server pull request is correct", findProperty("ci.pr"), ci.pullRequest)
+        assertEquals("CI server pull request target branch is correct", findProperty("ci.pr.tarbetBranch"), ci.pullRequestTargetBranch)
+    }
+}
