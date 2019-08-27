@@ -4,6 +4,7 @@ plugins {
 }
 
 println System.getenv()
+println ci.getClass().getName()
 
 def assertEquals(message, expected, actual) {
     if(expected != actual) {
