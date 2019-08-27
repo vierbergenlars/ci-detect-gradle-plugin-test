@@ -3,6 +3,7 @@ name: CI tag
 on:
     push:
         tags:
+          - tag-1
 jobs:
     build:
         name: Build tag
